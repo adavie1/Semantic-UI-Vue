@@ -12,10 +12,13 @@ export default {
     disabled: Boolean,
     error: Boolean,
     focus: Boolean,
+    fluid: Boolean,
     icon: String,
     iconPosition: Enum(['left', 'right']),
     inverted: Boolean,
+    inputClass: String,
     loading: Boolean,
+    size: Enum(['mini', 'small', 'large', 'big', 'huge', 'massive']),
     transparent: Boolean,
     type: {
       description: 'The HTML input type.',
@@ -58,14 +61,18 @@ export default {
           this.transparent && 'transparent',
           this.inverted && 'inverted',
           this.loading && 'loading',
+          this.fluid && 'fluid',
           this.iconPosition === 'left' && 'left',
           (this.loading || this.icon) && 'icon',
+          Boolean(this.size) && this.size,
           'input',
         )}
       >
         <input
+          class={this.inputClass}
           value={this.value}
           onInput={this.handleChange}
+          onFocus={e => this.$emit('focus', e)}
           onBlur={e => this.$emit('blur', e)}
           ref="input"
           type={this.type}

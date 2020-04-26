@@ -8,7 +8,13 @@ import SuiMessageList from './MessageList';
 
 export default {
   name: 'SuiMessage',
-  components: { SuiIcon, SuiMessageContent, SuiMessageHeader, SuiMessageItem, SuiMessageList },
+  components: {
+    SuiIcon,
+    SuiMessageContent,
+    SuiMessageHeader,
+    SuiMessageItem,
+    SuiMessageList,
+  },
   mixins: [SemanticUIVueMixin],
   props: {
     content: {
@@ -36,7 +42,8 @@ export default {
     }),
     attached: Enum(['bottom', 'top'], {
       type: Boolean,
-      description: 'A message can be formatted to attach itself to other content.',
+      description:
+        'A message can be formatted to attach itself to other content.',
     }),
     color: Enum.Color({
       description: 'A message can be formatted to be different colors.',
@@ -59,19 +66,32 @@ export default {
     },
     error: {
       type: Boolean,
-      description: 'A message may be formatted to display a negative message. Same as `negative`.',
+      description:
+        'A message may be formatted to display a negative message. Same as `negative`.',
     },
     negative: {
       type: Boolean,
-      description: 'A message may be formatted to display a negative message. Same as `error`.',
+      description:
+        'A message may be formatted to display a negative message. Same as `error`.',
     },
     success: {
       type: Boolean,
-      description: 'A message may be formatted to display a positive message. Same as `positive`.',
+      description:
+        'A message may be formatted to display a positive message. Same as `positive`.',
     },
     positive: {
       type: Boolean,
-      description: 'A message may be formatted to display a positive message. Same as `success`.',
+      description:
+        'A message may be formatted to display a positive message. Same as `success`.',
+    },
+    hidden: {
+      type: Boolean,
+      description: 'A message can be hidden.',
+    },
+    visible: {
+      type: Boolean,
+      description:
+        'A message can be set to visible to force itself to be shown.',
     },
   },
   events: {
@@ -91,7 +111,9 @@ export default {
       this.$slots.default,
       this.list && (
         <SuiMessageList>
-          {this.list.map(item => <SuiMessageItem>{item}</SuiMessageItem>)}
+          {this.list.map(item => (
+            <SuiMessageItem>{item}</SuiMessageItem>
+          ))}
         </SuiMessageList>
       ),
     ];
@@ -111,16 +133,19 @@ export default {
           this.positive && 'positive',
           this.error && 'error',
           this.negative && 'negative',
-          this.attached, this.attached && 'attached',
+          this.attached,
+          this.attached && 'attached',
           this.icon && 'icon',
           this.compact && 'compact',
+          this.hidden && 'hidden',
+          this.visible && 'visible',
           'message',
         )}
       >
-        {this.dismissable && <SuiIcon name="close"
-                                      nativeOnClick={this.handleDismiss} />}
-        {this.icon && <SuiIcon name={this.icon} />}
-        {this.icon && <SuiMessageContent>{content}</SuiMessageContent>}
+        {this.dismissable && (
+          <SuiIcon name="close" nativeOnClick={this.handleDismiss} />
+        )}
+        {typeof this.icon === 'string' && <SuiIcon name={this.icon} />}
         {!this.icon && content}
       </ElementType>
     );

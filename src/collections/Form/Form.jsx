@@ -10,7 +10,8 @@ export default {
     }),
     loading: {
       type: Boolean,
-      description: 'If a form is in loading state, it will automatically show a loading indicator.',
+      description:
+        'If a form is in loading state, it will automatically show a loading indicator.',
     },
     success: {
       type: Boolean,
@@ -24,7 +25,7 @@ export default {
       type: Boolean,
       description: 'Automatically show any error Message children.',
     },
-    state: Enum(['success', 'warning', 'error'], {
+    state: Enum(['success', 'warning', 'error', 'loading'], {
       description: 'You can set the state of form using one variable',
     }),
     inverted: {

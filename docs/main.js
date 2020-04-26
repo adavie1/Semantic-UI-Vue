@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import SemanticUI from 'src';
+import SemanticUI from 'semantic-ui-vue';
 import PortalVue from 'portal-vue';
 import App from './App';
 import router from './router';
@@ -18,6 +18,20 @@ const root = new Vue({
   components: { App },
   router,
   template: '<App/>',
+  provide: {
+    sui: {
+      api: {
+        base: 'https://api.semantic-ui.com',
+        api: {
+          search: '/search/{value}',
+          'search category': '/search/category/{value}',
+        },
+        onResponse(response) {
+          return response.results;
+        },
+      },
+    },
+  },
 });
 
 document.addEventListener('DOMContentLoaded', () => {
